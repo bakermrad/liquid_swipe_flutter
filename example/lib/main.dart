@@ -6,8 +6,8 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 void main() {
   /// Comment or uncomment to run both examples
   runApp(
-      WithBuilder()
-      // WithPages()
+    WithBuilder(),
+    // WithPages()
   );
 }
 
@@ -35,13 +35,28 @@ class _WithBuilder extends State<WithBuilder> {
 
   List<ItemData> data = [
     ItemData(Colors.blue, "assets/1.png", "Hi", "It's Me", "Sahdeep"),
-    ItemData(Colors.deepPurpleAccent, "assets/1.png", "Take a", "Look At",
-        "Liquid Swipe"),
-    ItemData(Colors.green, "assets/1.png", "Liked?", "Fork!", "Give Star!"),
-    ItemData(Colors.yellow, "assets/1.png", "Can be", "Used for",
-        "Onboarding design"),
     ItemData(
-        Colors.pink, "assets/1.png", "Example", "of a page", "with Gesture"),
+      Colors.deepPurpleAccent,
+      "assets/1.png",
+      "Take a",
+      "Look At",
+      "Liquid Swipe",
+    ),
+    ItemData(Colors.green, "assets/1.png", "Liked?", "Fork!", "Give Star!"),
+    ItemData(
+      Colors.yellow,
+      "assets/1.png",
+      "Can be",
+      "Used for",
+      "Onboarding design",
+    ),
+    ItemData(
+      Colors.pink,
+      "assets/1.png",
+      "Example",
+      "of a page",
+      "with Gesture",
+    ),
     ItemData(Colors.red, "assets/1.png", "Do", "try it", "Thank you"),
   ];
 
@@ -53,10 +68,7 @@ class _WithBuilder extends State<WithBuilder> {
 
   Widget _buildDot(int index) {
     double selectedness = Curves.easeOut.transform(
-      max(
-        0.0,
-        1.0 - ((page) - index).abs(),
-      ),
+      max(0.0, 1.0 - ((page) - index).abs()),
     );
     double zoom = 1.0 + (2.0 - 1.0) * selectedness;
     return new Container(
@@ -65,10 +77,7 @@ class _WithBuilder extends State<WithBuilder> {
         child: new Material(
           color: Colors.white,
           type: MaterialType.circle,
-          child: new Container(
-            width: 8.0 * zoom,
-            height: 8.0 * zoom,
-          ),
+          child: new Container(width: 8.0 * zoom, height: 8.0 * zoom),
         ),
       ),
     );
@@ -96,30 +105,20 @@ class _WithBuilder extends State<WithBuilder> {
                         height: 300,
                         fit: BoxFit.contain,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(index != 4 ? 24.0 : 0),
-                      ),
+                      Padding(padding: EdgeInsets.all(index != 4 ? 24.0 : 0)),
                       index == 4
                           ? Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 70.0),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 70.0,
+                              ),
                               child: ExampleSlider(),
                             )
                           : SizedBox.shrink(),
                       Column(
                         children: <Widget>[
-                          Text(
-                            data[index].text1,
-                            style: WithPages.style,
-                          ),
-                          Text(
-                            data[index].text2,
-                            style: WithPages.style,
-                          ),
-                          Text(
-                            data[index].text3,
-                            style: WithPages.style,
-                          ),
+                          Text(data[index].text1, style: WithPages.style),
+                          Text(data[index].text2, style: WithPages.style),
+                          Text(data[index].text3, style: WithPages.style),
                         ],
                       ),
                     ],
@@ -156,12 +155,15 @@ class _WithBuilder extends State<WithBuilder> {
                 child: TextButton(
                   onPressed: () {
                     liquidController.animateToPage(
-                        page: data.length - 1, duration: 700);
+                      page: data.length - 1,
+                      duration: 700,
+                    );
                   },
                   child: Text("Skip to End"),
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.01),
-                      foregroundColor: Colors.black),
+                    backgroundColor: Colors.white.withOpacity(0.01),
+                    foregroundColor: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -172,17 +174,19 @@ class _WithBuilder extends State<WithBuilder> {
                 child: TextButton(
                   onPressed: () {
                     liquidController.jumpToPage(
-                        page: liquidController.currentPage + 1 > data.length - 1
-                            ? 0
-                            : liquidController.currentPage + 1);
+                      page: liquidController.currentPage + 1 > data.length - 1
+                          ? 0
+                          : liquidController.currentPage + 1,
+                    );
                   },
                   child: Text("Next"),
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.01),
-                      foregroundColor: Colors.black),
+                    backgroundColor: Colors.white.withOpacity(0.01),
+                    foregroundColor: Colors.black,
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -220,27 +224,13 @@ class _WithPages extends State<WithPages> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            'assets/1.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
+          Image.asset('assets/1.png', fit: BoxFit.cover),
+          Padding(padding: EdgeInsets.all(24.0)),
           Column(
             children: <Widget>[
-              Text(
-                "Hi",
-                style: WithPages.style,
-              ),
-              Text(
-                "It's Me",
-                style: WithPages.style,
-              ),
-              Text(
-                "Sahdeep",
-                style: WithPages.style,
-              ),
+              Text("Hi", style: WithPages.style),
+              Text("It's Me", style: WithPages.style),
+              Text("Sahdeep", style: WithPages.style),
             ],
           ),
         ],
@@ -253,27 +243,13 @@ class _WithPages extends State<WithPages> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            'assets/1.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
+          Image.asset('assets/1.png', fit: BoxFit.cover),
+          Padding(padding: EdgeInsets.all(24.0)),
           Column(
             children: <Widget>[
-              Text(
-                "Take a",
-                style: WithPages.style,
-              ),
-              Text(
-                "look at",
-                style: WithPages.style,
-              ),
-              Text(
-                "Liquid Swipe",
-                style: WithPages.style,
-              ),
+              Text("Take a", style: WithPages.style),
+              Text("look at", style: WithPages.style),
+              Text("Liquid Swipe", style: WithPages.style),
             ],
           ),
         ],
@@ -286,27 +262,13 @@ class _WithPages extends State<WithPages> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            'assets/1.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
+          Image.asset('assets/1.png', fit: BoxFit.cover),
+          Padding(padding: EdgeInsets.all(24.0)),
           Column(
             children: <Widget>[
-              Text(
-                "Liked?",
-                style: WithPages.style,
-              ),
-              Text(
-                "Fork!",
-                style: WithPages.style,
-              ),
-              Text(
-                "Give Star!",
-                style: WithPages.style,
-              ),
+              Text("Liked?", style: WithPages.style),
+              Text("Fork!", style: WithPages.style),
+              Text("Give Star!", style: WithPages.style),
             ],
           ),
         ],
@@ -319,27 +281,13 @@ class _WithPages extends State<WithPages> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            'assets/1.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
+          Image.asset('assets/1.png', fit: BoxFit.cover),
+          Padding(padding: EdgeInsets.all(24.0)),
           Column(
             children: <Widget>[
-              Text(
-                "Can be",
-                style: WithPages.style,
-              ),
-              Text(
-                "Used for",
-                style: WithPages.style,
-              ),
-              Text(
-                "Onboarding Design",
-                style: WithPages.style,
-              ),
+              Text("Can be", style: WithPages.style),
+              Text("Used for", style: WithPages.style),
+              Text("Onboarding Design", style: WithPages.style),
             ],
           ),
         ],
@@ -352,28 +300,16 @@ class _WithPages extends State<WithPages> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            'assets/1.png',
-            fit: BoxFit.cover,
-          ),
+          Image.asset('assets/1.png', fit: BoxFit.cover),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 70.0),
             child: ExampleSlider(),
           ),
           Column(
             children: <Widget>[
-              Text(
-                "Example",
-                style: WithPages.style,
-              ),
-              Text(
-                "of a page",
-                style: WithPages.style,
-              ),
-              Text(
-                "with Gesture",
-                style: WithPages.style,
-              ),
+              Text("Example", style: WithPages.style),
+              Text("of a page", style: WithPages.style),
+              Text("with Gesture", style: WithPages.style),
             ],
           ),
         ],
@@ -386,27 +322,13 @@ class _WithPages extends State<WithPages> {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Image.asset(
-            'assets/1.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: EdgeInsets.all(24.0),
-          ),
+          Image.asset('assets/1.png', fit: BoxFit.cover),
+          Padding(padding: EdgeInsets.all(24.0)),
           Column(
             children: <Widget>[
-              Text(
-                "Do",
-                style: WithPages.style,
-              ),
-              Text(
-                "Try it",
-                style: WithPages.style,
-              ),
-              Text(
-                "Thank You",
-                style: WithPages.style,
-              ),
+              Text("Do", style: WithPages.style),
+              Text("Try it", style: WithPages.style),
+              Text("Thank You", style: WithPages.style),
             ],
           ),
         ],
@@ -422,10 +344,7 @@ class _WithPages extends State<WithPages> {
 
   Widget _buildDot(int index) {
     double selectedness = Curves.easeOut.transform(
-      max(
-        0.0,
-        1.0 - ((page) - index).abs(),
-      ),
+      max(0.0, 1.0 - ((page) - index).abs()),
     );
     double zoom = 1.0 + (2.0 - 1.0) * selectedness;
     return new Container(
@@ -434,10 +353,7 @@ class _WithPages extends State<WithPages> {
         child: new Material(
           color: Colors.white,
           type: MaterialType.circle,
-          child: new Container(
-            width: 8.0 * zoom,
-            height: 8.0 * zoom,
-          ),
+          child: new Container(width: 8.0 * zoom, height: 8.0 * zoom),
         ),
       ),
     );
@@ -481,12 +397,15 @@ class _WithPages extends State<WithPages> {
                 child: TextButton(
                   onPressed: () {
                     liquidController.animateToPage(
-                        page: pages.length - 1, duration: 700);
+                      page: pages.length - 1,
+                      duration: 700,
+                    );
                   },
                   child: Text("Skip to End"),
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.01),
-                      foregroundColor: Colors.black),
+                    backgroundColor: Colors.white.withOpacity(0.01),
+                    foregroundColor: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -497,18 +416,19 @@ class _WithPages extends State<WithPages> {
                 child: TextButton(
                   onPressed: () {
                     liquidController.jumpToPage(
-                        page:
-                            liquidController.currentPage + 1 > pages.length - 1
-                                ? 0
-                                : liquidController.currentPage + 1);
+                      page: liquidController.currentPage + 1 > pages.length - 1
+                          ? 0
+                          : liquidController.currentPage + 1,
+                    );
                   },
                   child: Text("Next"),
                   style: TextButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.01),
-                      foregroundColor: Colors.black),
+                    backgroundColor: Colors.white.withOpacity(0.01),
+                    foregroundColor: Colors.black,
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -535,13 +455,14 @@ class _ExampleSliderState extends State<ExampleSlider> {
   @override
   Widget build(BuildContext context) {
     return Slider(
-        value: sliderVal,
-        activeColor: Colors.white,
-        inactiveColor: Colors.red,
-        onChanged: (val) {
-          setState(() {
-            sliderVal = val;
-          });
+      value: sliderVal,
+      activeColor: Colors.white,
+      inactiveColor: Colors.red,
+      onChanged: (val) {
+        setState(() {
+          sliderVal = val;
         });
+      },
+    );
   }
 }

@@ -22,6 +22,7 @@ class PageDragger extends StatefulWidget {
   /// Used to make animation faster or slower through it corresponding value
   /// default : [FULL_TRANSITION_PX]
   final double fullTransitionPX;
+  final double fullTransitionPY;
 
   /// Slide Icon whichever provided
   final Widget? slideIconWidget;
@@ -43,6 +44,7 @@ class PageDragger extends StatefulWidget {
     required this.enableSideReveal,
     required this.preferDragFromRevealedArea,
     this.fullTransitionPX = FULL_TRANSITION_PX,
+    this.fullTransitionPY = FULL_TRANSITION_PY,
     this.slideIconWidget,
     this.iconPosition,
     this.ignoreUserGestureWhileAnimating = false,
@@ -117,6 +119,43 @@ class _PageDraggerState extends State<PageDragger> {
     }
   }
 
+  ///Updating data while user drags and touch offset changes
+  ///called at [GestureDetector.onVerticalDragUpdate]
+  onVerticalDragUpdate(DragUpdateDetails details) {
+    print("Baker here, onVerticalDragUpdate is called");
+    if (dragStart != null) {
+      //Getting new position details
+      final newPosition = details.globalPosition;
+      //Change in position in y
+      final dx = newPosition.dx;
+      final dy = dragStart!.dy - newPosition.dy;
+
+      slideDirection = SlideDirection.none;
+      //predicting slide direction
+      if (dy > 0.0) {
+        slideDirection = SlideDirection.topToBottom;
+      } else if (dy < 0.0) {
+        slideDirection = SlideDirection.bottomToTop;
+      }
+
+      //predicting slide percent
+      if (slideDirection != SlideDirection.none) {
+        //clamp method is used to clamp the value of slidePercent from 0.0 to 1.0, after 1.0 it set to 1.0
+        slidePercentHor = (dy / widget.fullTransitionPY).abs().clamp(0.0, 1.0);
+        slidePercentVer =
+            (dx / MediaQuery.of(context).size.width).abs().clamp(0.0, 1.0);
+      }
+
+      Provider.of<LiquidProvider>(context, listen: false)
+          .updateSlide(SlideUpdate(
+        slideDirection,
+        slidePercentHor,
+        slidePercentVer,
+        UpdateType.dragging,
+      ));
+    }
+  }
+
   ///This method executes when user ends dragging and leaves the screen
   ///called at [GestureDetector.onHorizontalDragEnd]
   onDragEnd(DragEndDetails details) {
@@ -167,6 +206,16 @@ class _PageDraggerState extends State<PageDragger> {
                 ? null
                 : onDragEnd
             : null,
+        onVerticalDragUpdate: widget.preferDragFromRevealedArea
+            ? model.isInProgress
+                ? null
+                : onVerticalDragUpdate
+            : null,
+        onVerticalDragEnd: widget.preferDragFromRevealedArea
+            ? model.isInProgress
+                ? null
+                : onDragEnd
+            : null,
         child: Stack(
           children: [
             PageReveal(
@@ -194,6 +243,16 @@ class _PageDraggerState extends State<PageDragger> {
                       : onDragUpdate
                   : null,
               onHorizontalDragEnd: !widget.preferDragFromRevealedArea
+                  ? model.isInProgress
+                      ? null
+                      : onDragEnd
+                  : null,
+              onVerticalDragUpdate: widget.preferDragFromRevealedArea
+                  ? model.isInProgress
+                      ? null
+                      : onVerticalDragUpdate
+                  : null,
+              onVerticalDragEnd: widget.preferDragFromRevealedArea
                   ? model.isInProgress
                       ? null
                       : onDragEnd

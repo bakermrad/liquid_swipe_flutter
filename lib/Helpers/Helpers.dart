@@ -4,6 +4,7 @@ import 'package:liquid_swipe/liquid_swipe.dart';
 /// A constant value with works like a sensitivity of reveal.
 /// Used if not mentioned here [LiquidSwipe.fullTransitionValue]
 const FULL_TRANSITION_PX = 300.0;
+const FULL_TRANSITION_PY = 300.0;
 
 /// Helper Factor for Completing the Animation when user is done with dragging
 const PERCENT_PER_MILLISECOND = 0.00125;
@@ -15,6 +16,8 @@ const PERCENT_PER_MILLISECOND = 0.00125;
 enum SlideDirection {
   leftToRight,
   rightToLeft,
+  topToBottom,
+  bottomToTop,
   none,
 }
 

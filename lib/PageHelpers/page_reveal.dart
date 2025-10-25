@@ -43,7 +43,8 @@ class PageReveal extends StatelessWidget {
           clipBehavior: Clip.antiAliasWithSaveLayer,
           clipper: CircularWave(
             iconSize,
-            slideDirection == SlideDirection.leftToRight
+            slideDirection == SlideDirection.leftToRight ||
+                    slideDirection == SlideDirection.topToBottom
                 ? 1.0 - horizontalReveal
                 : horizontalReveal,
             verticalReveal,
